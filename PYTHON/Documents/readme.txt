@@ -1,0 +1,1 @@
+If we lost, start over and become better one
