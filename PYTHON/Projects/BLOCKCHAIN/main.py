@@ -1,3 +1,6 @@
+import os
+pathblock = 'c:\\noirecode\\python\\projects\\blockchain\\blocks\\block{}.txt'
+
 
 def blockhash(n):
     # ma hoa du lieu
@@ -23,8 +26,7 @@ def blockhash(n):
         return datahash
 
     # doc block
-    block = open(
-        'c:\\noirecode\\python\\projects\\blockchain\\blocks\\block{}.txt'.format(n), 'r')
+    block = open(pathblock.format(n), 'r')
     blockread = block.read()
     print('     BLOCKHASH.blockread:', blockread)
 
@@ -36,16 +38,14 @@ def blockhash(n):
         blockstart = blockread.split(',')[0]
         blockend = blockread.split(':')[1]
         block.close()
-        block = open(
-            'c:\\noirecode\\python\\projects\\blockchain\\blocks\\block{}.txt'.format(n), 'w')
+        block = open(pathblock.format(n), 'w')
         block.write(blockstart + ',' + message + ':' + blockend)
         block.close()
     else:
         block.close()
 
     # mo block de kiem tra pass
-    block = open(
-        'c:\\noirecode\\python\\projects\\blockchain\\blocks\\block{}.txt'.format(n), 'r')
+    block = open(pathblock.format(n), 'r')
     blockread = block.read()
     checkpass = blockread.split(';')[1]
     checkpassstart = blockread.split(';')[0]
@@ -57,15 +57,13 @@ def blockhash(n):
     # kiem tra lai pass co trung khop voi data khong
     if checkpass != '!' + passthere:
         block.close()
-        block = open(
-            'c:\\noirecode\\python\\projects\\blockchain\\blocks\\block{}.txt'.format(n), 'w')
+        block = open(pathblock.format(n), 'w')
         block.write(checkpassstart + ';!' + passthere)
         block.close()
     else:
         block.close()
 
-    block = open(
-        'c:\\noirecode\\python\\projects\\blockchain\\blocks\\block{}.txt'.format(n), 'r')
+    block = open(pathblock.format(n), 'r')
     print('     BLOCKHASH.dataafter:', block.read())
     block.close()
     return passthere
@@ -74,15 +72,14 @@ def blockhash(n):
 def newblock(n):
     print('NEWBLOCK {}'.format(n))
     block = open(
-        'c:\\noirecode\\python\\projects\\blockchain\\blocks\\block{}.txt'.format(n), 'a')
+        pathblock.format(n), 'a')
     block.close()
     block = open(
-        'c:\\noirecode\\python\\projects\\blockchain\\blocks\\block{}.txt'.format(n), 'r')
+        pathblock.format(n), 'r')
     blockread = block.read()
     if blockread == '':
         block.close()
-        block = open(
-            'c:\\noirecode\\python\\projects\\blockchain\\blocks\\block{}.txt'.format(n), 'w')
+        block = open(pathblock.format(n), 'w')
         block.write('keyhere{}.{},:passthere{};!'.format(
             n, blockhash(n-1), n+1))
         block.close()
@@ -96,13 +93,13 @@ def renderblock(n):
     for i in range(0, n+1):
         newblock(i)
 
+# doc message tu block
+
 
 def readblock(n):
-    blocka = open(
-        'c:\\noirecode\\python\\projects\\blockchain\\blocks\\block{}.txt'.format(n), 'r')
+    blocka = open(pathblock.format(n), 'r')
     blockaread = blocka.read()
-    blockb = open(
-        'c:\\noirecode\\python\\projects\\blockchain\\blocks\\block{}.txt'.format(n-1), 'r')
+    blockb = open(pathblock.format(n-1), 'r')
     blockbread = blockb.read()
     keya = blockaread.split('.')[1].split(',')[0]
     passb = blockbread.split('!')[1]
@@ -113,6 +110,37 @@ def readblock(n):
         print('BLOCK {}: DAMAGED BLOCKCHAIN!!! (BLOCK {})'.format(n, n-1))
 
 
-# block 2 miss final 'd'
-for i in range(1, 8):
+# delete block
+def delblock(n):
+    for i in range(1, n+1):
+        try:
+            os.remove(pathblock.format(i))
+            print('Remove block {}'.format(i))
+        except:
+            print('None {}'.format(i))
+
+
+def encodeblock(n):
+    block = open(pathblock.format(n), 'r')
+    blockread = block.read()
+    blockreadlist = list(blockread)
+    print(blockreadlist)
+    listnumber = ''
+    for i in range(len(blockreadlist)):
+        blockreadlist[i] = str(ord(blockreadlist[i]))
+        listnumber += blockreadlist[i] + '.'
+    listnumber = listnumber.rstrip('.')
+    print(listnumber)
+
+
+def decodeblock():
+    strbl = '107.101.121.104.101.114.101.48.46.48.44.58.112.97.115.115.116.104.101.114.101.59.33'
+    listbl = strbl.split('.')
+    print(strbl)
+    for i in range(len(listbl)):
+        listbl[i] = chr(listbl[i])
+        print(listbl[i])
+
+
+for i in range(1, 21):
     readblock(i)
