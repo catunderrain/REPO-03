@@ -26,13 +26,14 @@ def blockhash(n):
         return datahash
 
     # doc block
+    decodeblock(n)
     block = open(pathblock.format(n), 'r')
     blockread = block.read()
     print('     BLOCKHASH.blockread:', blockread)
 
     # kiem tra massage trong hay day
     checkmessage = blockread.split(',')[1].split(':')[0]
-    print('     BLOCKHASH.checkmessage:', checkmessage)
+    # print('     BLOCKHASH.checkmessage:', checkmessage)
     if checkmessage == '':
         message = input('message: ')
         blockstart = blockread.split(',')[0]
@@ -49,7 +50,7 @@ def blockhash(n):
     blockread = block.read()
     checkpass = blockread.split(';')[1]
     checkpassstart = blockread.split(';')[0]
-    print('     BLOCKHASH.checkpass:', checkpass)
+    # print('     BLOCKHASH.checkpass:', checkpass)
     # doc du lieu va ma hoa du lieu bang cathash
     data = blockread.split(';')[0]
     passthere = cathash(data)
@@ -66,6 +67,7 @@ def blockhash(n):
     block = open(pathblock.format(n), 'r')
     print('     BLOCKHASH.dataafter:', block.read())
     block.close()
+    encodeblock(n)
     return passthere
 
 
@@ -97,8 +99,10 @@ def renderblock(n):
 
 
 def readblock(n):
+    decodeblock(n)
     blocka = open(pathblock.format(n), 'r')
     blockaread = blocka.read()
+    decodeblock(n-1)
     blockb = open(pathblock.format(n-1), 'r')
     blockbread = blockb.read()
     keya = blockaread.split('.')[1].split(',')[0]
@@ -106,8 +110,12 @@ def readblock(n):
     if keya == passb:
         print('Message block {}: '.format(n),
               blockaread.split(',')[1].split(':')[0])
+        encodeblock(n)
+        encodeblock(n-1)
     else:
         print('BLOCK {}: DAMAGED BLOCKCHAIN!!! (BLOCK {})'.format(n, n-1))
+        encodeblock(n)
+        encodeblock(n-1)
 
 
 # delete block
@@ -123,24 +131,46 @@ def delblock(n):
 def encodeblock(n):
     block = open(pathblock.format(n), 'r')
     blockread = block.read()
-    blockreadlist = list(blockread)
-    print(blockreadlist)
-    listnumber = ''
-    for i in range(len(blockreadlist)):
-        blockreadlist[i] = str(ord(blockreadlist[i]))
-        listnumber += blockreadlist[i] + '.'
-    listnumber = listnumber.rstrip('.')
-    print(listnumber)
+    # print(blockread[:13])
+    if blockread[:13] == 'catunderrain!':
+        block.close()
+    else:
+        blockreadlist = list(blockread)
+        # print(blockreadlist)
+        listnumber = ''
+        for i in range(len(blockreadlist)):
+            blockreadlist[i] = str(ord(blockreadlist[i]))
+            listnumber += blockreadlist[i] + '.'
+        listnumber = listnumber.rstrip('.')
+        # print(listnumber)
+        block.close()
+        block = open(pathblock.format(n), 'w')
+        block.write('catunderrain!' + listnumber)
+        block.close()
 
 
-def decodeblock():
-    strbl = '107.101.121.104.101.114.101.48.46.48.44.58.112.97.115.115.116.104.101.114.101.59.33'
-    listbl = strbl.split('.')
-    print(strbl)
-    for i in range(len(listbl)):
-        listbl[i] = chr(listbl[i])
-        print(listbl[i])
+def decodeblock(n):
+    block = open(pathblock.format(n), 'r')
+    blockread = block.read()
+    if blockread[:13] == 'catunderrain!':
+        strbl = blockread[13:]
+        listbl = strbl.split('.')
+        # print(strbl)
+        # print(listbl)
+        strlist = ''
+        for i in range(len(listbl)):
+            strlist += chr(int(listbl[i]))
+        # print(strlist)
+        block.close()
+        block = open(pathblock.format(n), 'w')
+        block.write(strlist)
+        block.close()
+    else:
+        block.close()
+        print('Decode block {} failed'.format(n))
 
 
-for i in range(1, 21):
-    readblock(i)
+#
+# renderblock(5)
+# delblock(3)
+readblock(5)
