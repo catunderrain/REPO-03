@@ -1,5 +1,5 @@
 import os
-pathblock = 'c:\\noirecode\\python\\projects\\blockchain\\blocks\\block{}.txt'
+pathblock = 'c:\\noirecode\\python\\projects\\BLOCKCHAIN_V2\\blocks\\block{}.txt'
 
 
 def blockhash(n):
@@ -73,11 +73,9 @@ def blockhash(n):
 
 def newblock(n):
     print('NEWBLOCK {}'.format(n))
-    block = open(
-        pathblock.format(n), 'a')
+    block = open(pathblock.format(n), 'a')
     block.close()
-    block = open(
-        pathblock.format(n), 'r')
+    block = open(pathblock.format(n), 'r')
     blockread = block.read()
     if blockread == '':
         block.close()
@@ -94,8 +92,6 @@ def newblock(n):
 def renderblock(n):
     for i in range(0, n+1):
         newblock(i)
-
-# doc message tu block
 
 
 def readblock(n):
@@ -118,7 +114,6 @@ def readblock(n):
         encodeblock(n-1)
 
 
-# delete block
 def delblock(n):
     for i in range(1, n+1):
         try:
@@ -170,4 +165,52 @@ def decodeblock(n):
         print('Decode block {} failed'.format(n))
 
 
-decodeblock(0)
+def countblock():
+    count = 0
+    i = 0
+    while count == 0:
+        try:
+            block = open(pathblock.format(i), 'r')
+            block.close()
+            i += 1
+        except:
+            count = 1
+    print('There are {} blocks now (include block 0)'.format(i))
+
+
+def layout():
+    exitquest = 'n'
+    while exitquest == 'n':
+        print('BLOCK CHAIN OF CAT')
+        print('1. Render n block/render block n')
+        print('2. Delete n block')
+        print('3. Take message from block n')
+        print('4. Exit')
+        print('5. See how many block now')
+        strin = input('Your chosen: ')
+        if strin == '1':
+            n = int(input('N: '))
+            print('\n')
+            renderblock(n)
+            print('\n')
+        elif strin == '2':
+            n = int(input('N: '))
+            print('\n')
+            delblock(n)
+            print('\n')
+        elif strin == '3':
+            n = int(input('N: '))
+            print('\n')
+            readblock(n)
+            print('\n')
+        elif strin == '5':
+            print('\n')
+            countblock()
+            print('\n')
+        elif strin == '4':
+            exitquest = input('Exit y/n?:')
+            if exitquest != 'y':
+                exitquest = 'n'
+
+
+layout()
