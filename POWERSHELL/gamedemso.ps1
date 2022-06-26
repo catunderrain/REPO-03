@@ -1,0 +1,1 @@
+py C:\noirecode\python\Projects\GAMEDEMSO\main.py
