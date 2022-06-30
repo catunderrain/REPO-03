@@ -88,6 +88,8 @@ def newblock(n):
         block.close()
         blockhash(n)
 
+# this is a def
+
 
 def renderblock(n):
     for i in range(0, n+1):
