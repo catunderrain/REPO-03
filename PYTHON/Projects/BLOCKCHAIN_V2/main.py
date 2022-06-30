@@ -211,9 +211,11 @@ def layout():
         elif strin == '6':
             print('\x1b[2J\x1b[1;1H')
         elif strin == '4':
+            # nothing here this is just a comment
             exitquest = input('Exit y/n?:')
             if exitquest != 'y':
                 exitquest = 'n'
+# nothing here this is just a comment
 
 
 layout()
