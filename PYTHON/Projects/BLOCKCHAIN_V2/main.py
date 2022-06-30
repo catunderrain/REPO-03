@@ -143,6 +143,8 @@ def encodeblock(n):
         block.write('catunderrain!' + listnumber)
         block.close()
 
+ # drg
+
 
 def decodeblock(n):
     block = open(pathblock.format(n), 'r')
