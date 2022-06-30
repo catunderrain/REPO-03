@@ -187,6 +187,7 @@ def layout():
         print('3. Take message from block n')
         print('4. Exit')
         print('5. See how many block now')
+        print('6. Clear screen')
         strin = input('Your chosen: ')
         if strin == '1':
             n = int(input('N: '))
@@ -207,6 +208,8 @@ def layout():
             print('\n')
             countblock()
             print('\n')
+        elif strin == '6':
+            print('\x1b[2J\x1b[1;1H')
         elif strin == '4':
             exitquest = input('Exit y/n?:')
             if exitquest != 'y':
