@@ -13,6 +13,7 @@ vscode{
     ctrl `: open/close terminal
     alt 1,2,3: move between tabs
     ctrl 1,2,3: move between editors
+    ctrl B: close side bar
 }
 
 
