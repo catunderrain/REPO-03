@@ -1,7 +1,25 @@
-{
-    git{
-        ctrl CC: commit
-        ctrl PP: push
-        ctrl shift G: git
-    }
+
+git{
+    ctrl CC: commit
+    ctrl PP: push
+    ctrl shift G: git
+}
+
+
+vscode{
+    ctrl KS: open shortcuts list
+    ctrl KT: skin
+    F1: json
+    ctrl `: open/close terminal
+    alt 1,2,3: move between tabs
+    ctrl 1,2,3: move between editors
+}
+
+
+bookmark{
+    alt QW: open bookmark
+    alt QQ: create bm with comment
+    alt WW: create bm/delete bm
+    alt AA: previous bm
+    alt SS: next bm
 }
