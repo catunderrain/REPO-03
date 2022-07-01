@@ -1,0 +1,26 @@
+<annotation>
+	<folder>bye</folder>
+	<filename>bye.1b6661ea-f90f-11ec-9ada-34e6d71664fa.jpg</filename>
+	<path>C:\NoireCode\PYTHON\ProjectsB\HANDSIGNS\Files\imgs\bye\bye.1b6661ea-f90f-11ec-9ada-34e6d71664fa.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>480</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>bye</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>70</xmin>
+			<ymin>4</ymin>
+			<xmax>376</xmax>
+			<ymax>370</ymax>
+		</bndbox>
+	</object>
+</annotation>
