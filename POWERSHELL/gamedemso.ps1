@@ -1,1 +1,1 @@
-py C:\noirecode\python\Projects\GAMEDEMSO\main.py
+py C:\\noirecode\\python\\ProjectsA\\GAMEDEMSO\\main.py

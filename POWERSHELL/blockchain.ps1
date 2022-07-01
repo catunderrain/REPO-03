@@ -1,1 +1,1 @@
-py C:\noirecode\python\projects\blockchain_v2\main.py
+py C:\\noirecode\\python\\projectsA\\blockchain_v2\\main.py
