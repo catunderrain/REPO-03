@@ -16,6 +16,10 @@ optional arguments:
                         Path of output .csv file. If none provided, then no file will be written.
 """
 
+from collections import namedtuple
+from object_detection.utils import dataset_util, label_map_util
+from PIL import Image
+import tensorflow._api.v2.compat.v1 as tf
 import os
 import glob
 import pandas as pd
@@ -24,10 +28,6 @@ import xml.etree.ElementTree as ET
 import argparse
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'    # Suppress TensorFlow logging (1)
-import tensorflow.compat.v1 as tf
-from PIL import Image
-from object_detection.utils import dataset_util, label_map_util
-from collections import namedtuple
 
 # Initiate argument parser
 parser = argparse.ArgumentParser(
