@@ -1,7 +1,7 @@
 
 git{
-    ctrl CC: commit
-    ctrl PP: push
+    alt CC: commit
+    alt PP: push
     ctrl shift G: git
 }
 
