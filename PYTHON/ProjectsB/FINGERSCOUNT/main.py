@@ -1,11 +1,12 @@
 import cv2
 import mediapipe as mp
-cap = cv2.VideoCapture(1)
+from time import sleep
+from subprocess import call
+cap = cv2.VideoCapture(0)
 mp_Hands = mp.solutions.hands
 hands = mp_Hands.Hands()
 mpDraw = mp.solutions.drawing_utils
-finger_Coord = [(8, 6), (12, 10), (16, 14), (20, 18)]
-thumb_Coord = (4, 2)
+finger_Coord = [(4, 2), (8, 6), (12, 10), (16, 14), (20, 18)]
 while True:
     success, image = cap.read()
     RGB_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -20,21 +21,24 @@ while True:
                 cx, cy = int(lm.x * w), int(lm.y * h)
                 handList.append((cx, cy))
         for point in handList:
-            cv2.circle(image, point, 10, (255, 255, 255), cv2.FILLED)
+            cv2.circle(image, point, 10, (0, 0, 0), cv2.FILLED)
         upCount = 0
+        print(finger_Coord)
         for coordinate in finger_Coord:
             if handList[coordinate[0]][1] < handList[coordinate[1]][1]:
                 upCount += 1
-        if handList[thumb_Coord[0]][0] < handList[thumb_Coord[1]][0]:
-            upCount += 1
         if upCount == 5:
             upCount = 'Bao'
         elif upCount == 2:
             upCount = 'Keo'
         elif upCount == 0:
             upCount = 'Bua'
+        # elif upCount == 1:
+        #     call('py C:\\noirecode\\python\\projectsB\\seleniums\\mybk.py', shell = True)
+
         cv2.putText(image, str(upCount), (150, 150),
                     cv2.FONT_HERSHEY_PLAIN, 12, (255, 255, 255), 12)
+    break
 
-    cv2.imshow("Counting number of fingers", image)
-    cv2.waitKey(1)
+cv2.imshow("Counting number of fingers", image)
+cv2.waitKey(1)
