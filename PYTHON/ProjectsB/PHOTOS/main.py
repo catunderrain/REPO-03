@@ -244,9 +244,14 @@ def cut(x):
     return o
 
 
+def randnoir(x):
+    a = layer(x, 1)
+    for i in range(len(a)):
+        a[i] = numpy.uint8(random.randint(0, 255))
+    b = a
+    c = a
+    h = collapse(a, b, c)
+    export(h)
+
+
 # workspace
-a = imgdata
-export(a, '')
-rgbout(a, 1)
-rgbout(a, 2)
-rgbout(a, 3)
