@@ -3,6 +3,7 @@ import time
 
 
 def fast(x):
+    print('\x1b[2J\x1b[1;1H')
     a = random.randint(0, x)
     b = random.randint(0, x)
     check = 0
@@ -23,10 +24,10 @@ def fast(x):
 
 def fastfather(n, x):
     table = []
-
     for i in range(n):
         print('NUMBER {}'.format(i+1))
         table.append(fast(x))
+    print('\x1b[2J\x1b[1;1H')
     print('Time table')
     for i in range(n):
         print(round(table[i], 3))

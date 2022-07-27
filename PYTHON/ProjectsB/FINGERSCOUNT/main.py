@@ -1,46 +1,5 @@
-import cv2
-import mediapipe as mp
-from time import sleep
-from subprocess import call
-cap = cv2.VideoCapture(0)
-mp_Hands = mp.solutions.hands
-hands = mp_Hands.Hands()
-mpDraw = mp.solutions.drawing_utils
-finger_Coord = [(8, 6), (12, 10), (16, 14), (20, 18)]
-thumb_Coord = (4, 2)
-while True:
-    success, image = cap.read()
-    RGB_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    results = hands.process(RGB_image)
-    multiLandMarks = results.multi_hand_landmarks
-    if multiLandMarks:
-        handList = []
-        for handLms in multiLandMarks:
-            mpDraw.draw_landmarks(image, handLms, mp_Hands.HAND_CONNECTIONS)
-            for idx, lm in enumerate(handLms.landmark):
-                h, w, c = image.shape
-                cx, cy = int(lm.x * w), int(lm.y * h)
-                handList.append((cx, cy))
-        for point in handList:
-            cv2.circle(image, point, 10, (200, 200, 200), cv2.FILLED)
-        upCount = 0
-        for coordinate in finger_Coord:
-            if handList[coordinate[0]][1] < handList[coordinate[1]][1]:
-                upCount += 1
-        if handList[thumb_Coord[0]][0] < handList[thumb_Coord[1]][0]:
-            upCount += 1
-        if upCount == 5:
-            upCount = '5'
-        elif upCount == 2:
-            upCount = '2'
-        elif upCount == 0:
-            upCount = '0'
-        # elif upCount == 1:
-            # sleep(5)
-            # call('py C:\\noirecode\\python\\projectsB\\seleniums\\mybk.py', shell=True)
-            # sleep(5)
-        cv2.putText(image, str(upCount), (150, 150),
-                    cv2.FONT_HERSHEY_PLAIN, 12, (255, 255, 255), 12)
+import matplotlib.pyplot as plt
 
-    cv2.imshow("Counting number of fingers", image)
-    cv2.waitKey(1)
+(x, y) = ([1, 2, 3], [1, 2, 3])
+line = plt.subplot(x, y, color='r')
+plt.show()

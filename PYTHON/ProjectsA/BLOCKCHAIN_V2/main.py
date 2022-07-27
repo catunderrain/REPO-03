@@ -1,5 +1,5 @@
 import os
-pathblock = 'c:\\noirecode\\python\\projects\\BLOCKCHAIN_V2\\blocks\\block{}.txt'
+pathblock = 'c:\\noirecode\\python\\projectsA\\BLOCKCHAIN_V2\\blocks\\block{}.txt'
 
 
 def blockhash(n):

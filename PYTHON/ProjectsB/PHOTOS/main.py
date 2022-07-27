@@ -10,7 +10,8 @@ import random
 numpy.set_printoptions(threshold=numpy.inf)
 
 # set thong tin co ban
-imgdata = image.imread('C:\\noirecode\\{}'.format('VA.jpg'))
+name = 'dm.jpg'
+imgdata = image.imread('C:\\noirecode\\{}'.format(name))
 print('Base shape: ', imgdata.shape)
 
 
@@ -44,7 +45,7 @@ def roundx(x, n):
 
 
 # xuat anh da chuyen tu du lieu ra ngoai
-def export(x, name):
+def export(x, name=''):
     if name == '':
         n = 'result'
     else:
@@ -175,7 +176,7 @@ def showcolor(a, b, c):
         y[i] = b
         z[i] = c
     m = collapse(x, y, z)
-    export(m)
+    export(m, 'socolo')
 
 
 # pool 4x
@@ -251,7 +252,19 @@ def randnoir(x):
     b = a
     c = a
     h = collapse(a, b, c)
-    export(h)
+    h = h[:10, :10]
+    export(h, '')
+
+
+def gray(x):
+    a = layer(x, 1)
+    b = layer(x, 2)
+    c = layer(x, 3)
+    d = []
+    for i in range(len(a)):
+        m = round((int(a[i])+int(b[i])+int(c[i]))/3, 0)
+        d.append(numpy.uint8(m))
+    export(collapse(d, d, d))
 
 
 # workspace
